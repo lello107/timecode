@@ -1,9 +1,11 @@
 # Timecode
 25 frames per second only
 
-Timecode::convert_to_frames("00:20:00:00") => 30000
+Timecode::convert_to_frames("00:20:00:00") 
+    => 30000
 
-Timecode::convert_from_frames(30000) => 00:20:00:00
+Timecode::convert_from_frames(30000) 
+    => 00:20:00:00
 
 
 ## Installation
