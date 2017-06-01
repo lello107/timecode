@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'timecode'
+    gem 'timecode',  :git => 'https://github.com/lello107/timecode.git'
 
 And then execute:
 
