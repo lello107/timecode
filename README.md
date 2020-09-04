@@ -1,12 +1,18 @@
 # Timecode
+25 frames per second only
 
-TODO: Write a gem description
+Timecode::convert_to_frames("00:20:00:00") 
+    => 30000
+
+Timecode::convert_from_frames(30000) 
+    => 00:20:00:00
+
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'timecode'
+    gem 'timecode',  :git => 'https://github.com/lello107/timecode.git'
 
 And then execute:
 
