@@ -68,6 +68,44 @@ end
     end
 
 
+ def self.convert_from_frames_to_datetime_no_frames(frames)
+
+        intHours, intMins, intSecs, intFrames, intTmp=0
+        timecode =""
+
+        #Convert frames to hours, minutes and seconds.
+
+        #Total number of seconds
+        intSecs = (frames / 25).to_i
+
+        #Total number of minutes
+        intMins = (intSecs / 60).to_i
+
+        #Total number of hours
+        intHours = (intSecs / 3600).to_i
+
+        #Number of secs remaining after subtracting  number of mins.
+        intSecs = ((frames / 25) - (intMins * 60)).to_i
+
+        #Number of mins remaining after subtracting number of hours.
+        intMins = intMins - (intHours * 60)
+
+        #Determine the number of frames remaining after subtracting hours,mins and secs
+        intTmp = intSecs * 25
+        intTmp = intTmp + (intMins * 60 * 25)
+        intTmp = intTmp + (intHours * 60 * 60 * 25)
+        intFrames = frames - intTmp
+
+        if(intFrames==25)
+            intFrames=24
+        end
+
+        #Convert to string, adding leading 0 where value is less than 10,and separating with ':'
+        timecode = addzero(intHours.to_s)  + ":" + addzero(intMins.to_s) + ":" + addzero(intSecs.to_s)
+        return timecode
+    end
+
+
 
  def self.convert_from_frames_to_datetime(frames)
 
@@ -106,6 +144,15 @@ end
         return timecode
     end
 
+    ##
+    # converte un timecode "00:00:30:23" -> 12323
+    # in BCD time usato da Harrsi per storare i timecode in 
+    # ASDB
+    # 
+    def self.timecode_to_bcd(timecode)
+        result = timecode.split(":").map{|x| x.to_i(16)}.pack("C*").unpack("N").first
+        return result
+    end
 
   def self.add_timecode(timecode1, timecode2)
         tc1 ,tc2 = 0
